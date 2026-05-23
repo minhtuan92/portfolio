@@ -12,11 +12,10 @@ interface Skill {
 }
 
 @Component({
-  selector: 'app-skills',
-  standalone: true,
-  imports: [CommonModule, TechCardComponent],
-  templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.css']
+    selector: 'app-skills',
+    imports: [CommonModule, TechCardComponent],
+    templateUrl: './skills.component.html',
+    styleUrls: ['./skills.component.css']
 })
 export class SkillsComponent implements OnInit {
   frameworkItems: TechCardItem[];

@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ProjectComponent } from '@shared/components';
 
 import { ProjectItem } from '@shared/models';
 
 @Component({
-  selector: 'app-projects',
-  standalone: true,
-  imports: [CommonModule, ProjectComponent],
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css']
+    selector: 'app-projects',
+    imports: [ProjectComponent],
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
   projects: ProjectItem[];

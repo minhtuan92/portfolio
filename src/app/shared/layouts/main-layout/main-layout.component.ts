@@ -15,20 +15,19 @@ import { HeaderComponent } from '../components/header/header.component';
 import { SidebarComponent } from '../components/sidebar/sidebar.component';
 
 @Component({
-  selector: 'app-main-layout',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    SidebarComponent,
-    HeaderComponent,
-    FooterComponent,
-    OverlayscrollbarsModule,
-    ScrollTopModule,
-    AngularSvgIconModule
-  ],
-  templateUrl: './main-layout.component.html',
-  styleUrls: ['./main-layout.component.css']
+    selector: 'app-main-layout',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        SidebarComponent,
+        HeaderComponent,
+        FooterComponent,
+        OverlayscrollbarsModule,
+        ScrollTopModule,
+        AngularSvgIconModule
+    ],
+    templateUrl: './main-layout.component.html',
+    styleUrls: ['./main-layout.component.css']
 })
 export class MainLayoutComponent implements OnInit {
   scrollbarTheme: string;

@@ -11,12 +11,11 @@ import { LayoutService } from '@core/services';
 import { FooterComponent } from '@shared/layouts';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, SkeletonModule, AnimateModule, FooterComponent, AngularSvgIconModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-home',
+    imports: [CommonModule, SkeletonModule, AnimateModule, FooterComponent, AngularSvgIconModule],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   isMyImageLoading$ = new BehaviorSubject<boolean>(true);

@@ -43,12 +43,11 @@ const Navigations: MenuItem[] = [
 ];
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, AngularSvgIconModule, DarkmodeButtonComponent, MenuModule],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-header',
+    imports: [CommonModule, RouterLink, RouterLinkActive, AngularSvgIconModule, DarkmodeButtonComponent, MenuModule],
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   layoutService = inject(LayoutService);

@@ -1,16 +1,15 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { ScreenSize } from '@shared/constants';
 import { LayoutService } from '@core/services';
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-sidebar',
+    imports: [],
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
   layoutService = inject(LayoutService);

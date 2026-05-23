@@ -11,11 +11,10 @@ interface SocialApp {
   link: string;
 }
 @Component({
-  selector: 'app-footer',
-  standalone: true,
-  imports: [CommonModule, RouterLink, AngularSvgIconModule, DarkmodeButtonComponent],
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+    selector: 'app-footer',
+    imports: [CommonModule, RouterLink, AngularSvgIconModule, DarkmodeButtonComponent],
+    templateUrl: './footer.component.html',
+    styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
   layoutService = inject(LayoutService);

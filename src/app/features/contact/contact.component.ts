@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TooltipModule } from 'primeng/tooltip';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 import { ToastService } from '@core/services';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [CommonModule, TooltipModule],
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+    selector: 'app-contact',
+    imports: [TooltipModule],
+    templateUrl: './contact.component.html',
+    styleUrls: ['./contact.component.css']
 })
 export class ContactComponent {
   email = 'minhtuan92vt@gmail.com';

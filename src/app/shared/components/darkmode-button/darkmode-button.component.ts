@@ -5,12 +5,11 @@ import { LOCALSTORAGE_ITEMS, ThemeOptions } from '@shared/constants';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 @Component({
-  selector: 'app-darkmode-button',
-  standalone: true,
-  imports: [CommonModule, AngularSvgIconModule],
-  templateUrl: './darkmode-button.component.html',
-  styleUrl: './darkmode-button.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-darkmode-button',
+    imports: [CommonModule, AngularSvgIconModule],
+    templateUrl: './darkmode-button.component.html',
+    styleUrl: './darkmode-button.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DarkmodeButtonComponent implements OnInit {
   darkModeActive = false;
