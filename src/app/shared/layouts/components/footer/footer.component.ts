@@ -12,7 +12,7 @@ interface SocialApp {
 }
 @Component({
     selector: 'app-footer',
-    imports: [CommonModule, RouterLink, AngularSvgIconModule, DarkmodeButtonComponent],
+    imports: [CommonModule, AngularSvgIconModule, DarkmodeButtonComponent],
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.css']
 })

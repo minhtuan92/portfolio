@@ -1,4 +1,6 @@
+import { vi } from 'vitest';
+
 export const layoutServiceMock = {
-  screenSize: jest.fn(() => 'Handset'),
-  isMobile: jest.fn()
+  screenSize: vi.fn(() => 'Handset'),
+  isMobile: vi.fn(),
 };

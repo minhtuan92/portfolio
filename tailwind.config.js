@@ -4,7 +4,6 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   darkMode: 'class',
   content: ['./src/**/*.{html,ts}'],
-  darkMode: 'class',
   theme: {
     fontFamily: {
       vt323: ['VT323', 'monospace', 'sans-serif']
@@ -107,7 +106,7 @@ module.exports = {
     }
   },
   plugins: [
-    require('tailwind-typewriter')({
+    require('./tailwind-typewriter-compat')({
       wordsets: {
         jobs: {
           words: ['_frontend developer', '_backend developer', '_fullstack developer'],

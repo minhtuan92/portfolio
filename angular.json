@@ -34,12 +34,10 @@
               "base": "dist/my-portfolio"
             },
             "index": "src/index.html",
-            "polyfills": ["zone.js"],
+            "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/assets"],
             "styles": [
-              "node_modules/primeng/resources/themes/tailwind-light/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -96,9 +94,12 @@
           }
         },
         "test": {
-          "builder": "@angular-builders/jest:run",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "configPath": "./jest.config.ts"
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "buildTarget": "myPortfolio:build:development",
+            "runnerConfig": "vitest.config.ts"
           }
         },
         "lint": {

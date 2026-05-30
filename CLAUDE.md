@@ -14,8 +14,9 @@ ng build                                                        # Standard build
 pnpm run build:gh-page  # GitHub Pages build (sets base-href /portfolio/)
 
 # Testing
-ng test             # Run all Jest tests
-ng test --testPathPattern=<path>  # Run a single test file
+pnpm test           # Run all Vitest tests (single run)
+pnpm test:watch     # Run Vitest in watch mode
+ng test             # Run via Angular CLI (uses @angular/build:unit-test with Vitest)
 
 # Code quality
 ng lint             # ESLint
@@ -37,9 +38,9 @@ Angular 18 standalone-components portfolio app. No NgModules — every component
 ## Key Technologies
 
 - **UI**: PrimeNG 17, Angular CDK, angular-svg-icon, overlayscrollbars
-- **Styling**: Tailwind CSS 3 with `tailwindcss/nesting` via PostCSS; dark mode via `ThemeService`; custom VT323 monospace font in `assets/fonts/`
+- **Styling**: Tailwind CSS 4 via `@tailwindcss/postcss`; theme config in `tailwind.config.js` (loaded via `@config`); dark mode via `ThemeService`; custom VT323 monospace font in `assets/fonts/`
 - **State**: Service-based only (no Redux/NgRx). `ThemeService` and `LayoutService` handle global UI state via RxJS signals/subjects.
-- **Testing**: Jest 29 + jsdom; global mocks in `src/app/core/mocks/global.mock.ts`; HTML report output to `./test/test-report.html`
+- **Testing**: Vitest 3 + jsdom + `@analogjs/vite-plugin-angular`; global mocks in `src/app/core/mocks/global.mock.ts`; Angular test env bootstrapped in `src/test-setup.ts`
 
 ## TypeScript Path Aliases
 

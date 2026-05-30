@@ -1,3 +1,5 @@
+@reference "../../../../../styles.css";
+
 :host {
   .router-link-active,
   ::ng-deep .p-menuitem-link-active > .p-menuitem-text {

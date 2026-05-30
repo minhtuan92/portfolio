@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkeletonModule } from 'primeng/skeleton';
-import { AnimateModule } from 'primeng/animate';
 
 import { BehaviorSubject, debounceTime, take } from 'rxjs';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -12,7 +11,7 @@ import { FooterComponent } from '@shared/layouts';
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, SkeletonModule, AnimateModule, FooterComponent, AngularSvgIconModule],
+    imports: [CommonModule, SkeletonModule, AngularSvgIconModule],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
