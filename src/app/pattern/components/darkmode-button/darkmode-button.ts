@@ -1,0 +1,66 @@
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
+import { Layout, Theme } from '@core/services';
+import { LOCALSTORAGE_ITEMS, ThemeOptions } from '@core/constants';
+
+@Component({
+  selector: 'app-darkmode-button',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, AngularSvgIconModule],
+  template: `
+    @let isMobile = layoutService.isMobile();
+    <button
+      type="button"
+      title="Toggle Dark Mode"
+      class="relative inline-flex items-center justify-center p-4.5 transition hover:bg-iron/20 dark:hover:bg-manganese-black lg:px-6"
+      (click)="handleToggleTheme()"
+    >
+      <svg-icon
+        [applyClass]="true"
+        viewBox="auto"
+        src="assets/icons/svg/Moon.svg"
+        class="h-6 w-6 rotate-90 scale-0 stroke-pastel-placebo stroke-2 transition-all duration-300 dark:rotate-0 dark:scale-100"
+      >
+      </svg-icon>
+      <svg-icon
+        [applyClass]="true"
+        viewBox="auto"
+        src="assets/icons/svg/Sun.svg"
+        class="absolute h-6 w-6 rotate-0 scale-100 stroke-dark-knight stroke-2 transition-all duration-300 dark:-rotate-90 dark:scale-0"
+      >
+      </svg-icon>
+      @if (!isMobile) {
+        <div class="container absolute flex h-full w-full items-center justify-center">
+          <div
+            [class]="{ 'scale-[1]': darkModeActive() }"
+            class="dark-mode relative z-[-100] flex h-[250vh] w-[250vh] flex-[0_0_auto] scale-0 rounded-[50%] bg-dark-knight transition duration-1000 ease-in-out lg:h-[250vw] lg:w-[250vw]"
+          ></div>
+        </div>
+      }
+    </button>
+  `
+})
+export class DarkmodeButton {
+  protected readonly layoutService = inject(Layout);
+  private readonly _themeService = inject(Theme);
+
+  protected readonly darkModeActive = computed(() => {
+    const theme = this._themeService.currentTheme();
+    if (theme === ThemeOptions.DARK) {
+      return true;
+    }
+    return false;
+  });
+
+  handleToggleTheme(): void {
+    const theme = this._themeService.currentTheme();
+    if (theme === ThemeOptions.LIGHT) {
+      localStorage.setItem(LOCALSTORAGE_ITEMS.THEME, ThemeOptions.DARK);
+    } else if (theme === ThemeOptions.DARK) {
+      localStorage.setItem(LOCALSTORAGE_ITEMS.THEME, ThemeOptions.LIGHT);
+    }
+    this._themeService.updateTheme();
+  }
+}

@@ -12,7 +12,6 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "standalone": true,
           "changeDetection": "OnPush",
           "style": "css"
         },
@@ -30,18 +29,10 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/my-portfolio"
-            },
-            "index": "src/index.html",
-            "polyfills": [],
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/assets"],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": [],
-            "browser": "src/main.ts"
+            "styles": ["src/styles.css"]
           },
           "configurations": {
             "production": {
@@ -76,7 +67,6 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
-          "options": { "open": true },
           "configurations": {
             "production": {
               "buildTarget": "myPortfolio:build:production"
@@ -87,20 +77,8 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "myPortfolio:build"
-          }
-        },
         "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "runner": "vitest",
-            "buildTarget": "myPortfolio:build:development",
-            "runnerConfig": "vitest.config.ts"
-          }
+          "builder": "@angular/build:unit-test"
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -109,32 +87,6 @@
           }
         }
       }
-    }
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
     }
   }
 }

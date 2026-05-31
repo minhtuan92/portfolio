@@ -1,0 +1,86 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { CommonModule } from '@angular/common';
+import { BehaviorSubject, debounceTime, map, take } from 'rxjs';
+
+import { SkeletonModule } from 'primeng/skeleton';
+import { AngularSvgIconModule } from 'angular-svg-icon';
+
+import { DEFAULT_DEBOUNCE_TIME_MS } from '@core/constants';
+import { Layout } from '@core/services';
+
+@Component({
+  selector: 'app-home',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, SkeletonModule, AngularSvgIconModule],
+  template: `
+    @let isMobile = layoutService.isMobile();
+
+    <div [ngClass]="isMobile ? '' : 'h-full'" class="flex flex-col gap-11 lg:gap-8 lg:pb-8">
+      <div class="flex animate-[fadeinleft_0.5s_ease-in] flex-col items-start gap-4 lg:gap-7">
+        <p class="above-typing-header_text">// Hi, I'm Tuan Tran, a...</p>
+        <div class="typing-header">
+          <p>{{ '{“' }}&nbsp;</p>
+          <p class="text-green-haze type-jobs dark:text-screen-glow"></p>
+          <p>&nbsp;{{ '“}' }}</p>
+        </div>
+      </div>
+      <div [ngClass]="isMobile ? 'flex-col gap-11' : 'flex-row gap-6'" class="flex grow items-center justify-between">
+        <div [ngClass]="isMobile ? 'w-full' : 'w-[70%]'" class="flex animate-[zoomin_0.5s_ease-in] flex-col gap-10">
+          <p>
+            I am a devoted web developer with a deep affection for the Angular framework. My journey in web development
+            has been fueled by a passion for creating sleek, dynamic, and responsive applications. Proficient in HTML,
+            CSS, JavaScript, and Angular, I specialize in crafting seamless user experiences that leave a lasting
+            impression.
+            <br />
+            <br />
+            With a keen eye for detail and a commitment to staying updated with the latest Angular advancements, I'm
+            dedicated to pushing the boundaries of what's achievable in web development. Let's build something
+            incredible together!
+          </p>
+          <a
+            href="./assets/files/Tran_Minh_Tuan-CV.pdf"
+            download="Tran_Minh_Tuan-CV.pdf"
+            class="inline-flex w-fit animate-bounce items-center justify-center gap-3 rounded-lg border border-green-haze px-4.5 py-2.5 text-green-haze shadow-xs hover:bg-iron/20 dark:border-screen-glow dark:text-screen-glow dark:hover:bg-manganese-black lg:px-7 lg:py-4"
+          >
+            <svg-icon
+              [applyClass]="true"
+              viewBox="auto"
+              [src]="'assets/icons/svg/download-02.svg'"
+              class="h-6 w-6 fill-lavender-mauve stroke-green-haze stroke-2 dark:fill-pastel-placebo dark:stroke-screen-glow"
+            >
+            </svg-icon>
+            Download my CV
+          </a>
+        </div>
+        <div class="flex w-full justify-center lg:w-1/2">
+          <img
+            class="lg:min-h-105 lg:max-w-120 max-w-full animate-[zoomin_0.5s_ease-in-out] rounded-3xl"
+            [hidden]="!isShowImage()"
+            src="./assets/images/my-image.jpg"
+            alt="My Image"
+            (load)="isMyImageLoading$.next(false)"
+          />
+          @if (!isShowImage()) {
+            <p-skeleton
+              styleClass="bg-gray-300 !w-[calc(100vw-2rem)] md:!w-[calc(100vw-14rem)] !h-[18rem] sm:!h-[22rem] md:!h-[26rem] !rounded-[1.5rem] dark:bg-mirage animate-[fadeinright_0.2s_linear] lg:min-h-[26.25rem] lg:!w-[30rem]"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  `
+})
+export class Home {
+  protected readonly layoutService = inject(Layout);
+
+  protected readonly isMyImageLoading$ = new BehaviorSubject<boolean>(true);
+  protected readonly isShowImage = toSignal(
+    this.isMyImageLoading$.pipe(
+      debounceTime(DEFAULT_DEBOUNCE_TIME_MS),
+      take(1),
+      map(() => true)
+    ),
+    { initialValue: false }
+  );
+}
