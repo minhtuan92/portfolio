@@ -1,0 +1,49 @@
+<div
+  class="mx-auto flex w-full max-w-[1320px] flex-1 flex-wrap items-center gap-x-16 gap-y-11 px-[clamp(20px,5vw,64px)] pb-11 pt-7"
+>
+  <div class="min-w-0 flex-[1_1_440px]">
+    <h1 aria-label="Say hello" class="mb-6 flex flex-wrap items-center gap-3 leading-none">
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-paper font-display text-paper-ink shade tilt-[-3deg] px-[18px] py-1.5 text-[clamp(60px,8vw,120px)]"
+      >
+        SAY
+      </span>
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-brick shade tilt-[2deg] px-[18px] py-1.5 text-[clamp(60px,8vw,120px)] font-extrabold text-white [animation-delay:.15s]"
+      >
+        hello
+      </span>
+    </h1>
+    <p
+      class="drop bg-note font-type text-note-ink shade tilt-[-0.8deg] max-w-[44ch] px-5 py-4 text-[19px] leading-[1.6] [animation-delay:.3s]"
+    >
+      If you have any questions, please don't hesitate to contact me. Let's build something incredible together!
+    </p>
+    <div class="write font-hand tilt-[-3deg] mt-6 w-fit text-[30px] font-bold [animation-delay:.6s]">
+      pick one, I read them all <span class="nudge">→</span>
+    </div>
+  </div>
+
+  <div class="flex min-w-0 flex-[1.2_1_480px] flex-col gap-7">
+    @for (link of links; track link.label; let first = $first) {
+      <a
+        [href]="link.href"
+        [attr.target]="first ? null : '_blank'"
+        [attr.rel]="first ? null : 'noopener'"
+        class="drop scrap shade-lg relative block px-[26px] no-underline"
+        [class]="link.card"
+      >
+        @if (first) {
+          <span
+            aria-hidden="true"
+            class="sway absolute left-[40%] top-[-14px] h-7 w-[20%] bg-[rgb(255_255_255_/_0.7)]"
+          ></span>
+        }
+        <span class="font-type block text-[15px] tracking-[0.08em]">{{ link.label }}</span>
+        <span class="mt-1 block leading-[1.1] [overflow-wrap:anywhere]" [class]="link.big">{{ link.text }}</span>
+      </a>
+    }
+  </div>
+</div>

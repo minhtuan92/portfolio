@@ -1,45 +1,296 @@
-@import 'overlayscrollbars/styles/overlayscrollbars.css';
 @import 'tailwindcss';
 @config '../tailwind.config.js';
 
-@layer base {
-  @font-face {
-    font-family: 'VT323';
-    src: url('./assets/fonts/VT323-Regular.ttf');
-    font-weight: 400;
-  }
+/* Paper-collage design tokens. Light is the base; `.dark` on <html> swaps them. */
+:root {
+  --bg: #d8cdb8;
+  --ink: #1b1b1b;
+  --paper: #ffffff;
+  --paper-ink: #1b1b1b;
+  --note: #f6f1e4;
+  --note-ink: #1b1b1b;
+  --tag: #1b1b1b;
+  --tag-ink: #ffffff;
+  --red: #b3261e;
+  --stamp: #b3261e;
+  --yellow: #ffe14d;
+  --blue: #2f6fd6;
+  --green: #1f7a5c;
+  --shade: rgb(0 0 0 / 0.25);
+  --dots: rgb(0 0 0 / 0.05);
+  color-scheme: light;
+}
 
+:root.dark {
+  --bg: #1a1816;
+  --ink: #f2ead8;
+  --paper: #f2ead8;
+  --paper-ink: #1a1816;
+  --note: #2b2723;
+  --note-ink: #f2ead8;
+  --tag: #f2ead8;
+  --tag-ink: #1a1816;
+  --red: #c8372c;
+  --stamp: #ff8478;
+  --shade: rgb(0 0 0 / 0.6);
+  --dots: rgb(242 234 216 / 0.05);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--bg);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-paper-ink: var(--paper-ink);
+  --color-note: var(--note);
+  --color-note-ink: var(--note-ink);
+  --color-tag: var(--tag);
+  --color-tag-ink: var(--tag-ink);
+  --color-brick: var(--red);
+  --color-stamp: var(--stamp);
+  --color-sun: var(--yellow);
+  --color-cobalt: var(--blue);
+  --color-pine: var(--green);
+
+  --font-display: 'Abril Fatface', serif;
+  --font-type: 'Special Elite', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+@layer base {
   html {
-    @apply text-[100%];
+    @apply scroll-smooth;
   }
 
   body {
-    --sidebar-width: 3.75rem;
-    --header-height: 3.75rem;
-    --header-height__mobile: 3.75rem;
-    @apply font-vt323 leading-none text-dark-knight dark:text-pastel-placebo;
+    @apply bg-page font-sans text-[17px] text-ink;
+    margin: 0;
+    background-image: radial-gradient(var(--dots) 1px, transparent 1.4px);
+    background-size: 7px 7px;
+    transition: background-color 0.3s ease;
+  }
 
-    header {
-      @apply text-xl/8 font-normal lg:text-2xl;
-    }
-
-    .content {
-      @apply text-xl/6 font-normal lg:text-[1.625rem] lg:leading-7;
-    }
-
-    & .typing-header {
-      @apply inline-flex min-h-[6.5rem] w-full flex-nowrap text-[3.25rem] font-normal leading-none lg:min-h-[6.25rem] lg:w-auto lg:text-[6.25rem] lg:leading-[7.5rem];
-      & .typing-header__text {
-        @apply text-green-haze dark:text-screen-glow;
-      }
-    }
-
-    & .above-typing-header_text {
-      @apply text-xl/6 font-normal lg:text-[1.625rem] lg:leading-7;
-    }
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
   }
 }
 
-.p-component {
-  @apply font-vt323;
+/* ------------------------------------------------------------------ motion */
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-90px) rotate(-16deg) scale(1.2);
+  }
+}
+@keyframes slidein {
+  from {
+    opacity: 0;
+    transform: translateX(120px) rotate(14deg);
+  }
+}
+@keyframes stamp {
+  from {
+    opacity: 0;
+    transform: scale(2.6) rotate(-40deg);
+  }
+  60% {
+    opacity: 1;
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    rotate: -2deg;
+  }
+  50% {
+    rotate: 2.5deg;
+  }
+}
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 260;
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.4;
+  }
+}
+@keyframes write {
+  from {
+    clip-path: inset(-20% 100% -20% 0);
+  }
+  to {
+    clip-path: inset(-20% -10% -20% 0);
+  }
+}
+@keyframes highlight {
+  from {
+    background-size: 0 100%;
+  }
+}
+@keyframes float {
+  50% {
+    translate: 0 -6px;
+  }
+}
+@keyframes grow {
+  from {
+    scale: 1 0;
+  }
+}
+@keyframes bob {
+  50% {
+    translate: 0 4px;
+  }
+}
+@keyframes nudge {
+  50% {
+    translate: 8px 0;
+  }
+}
+@keyframes wiggle {
+  25% {
+    rotate: -7deg;
+  }
+  75% {
+    rotate: 7deg;
+  }
+}
+
+@utility drop {
+  animation: drop 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+}
+@utility slidein {
+  animation: slidein 0.8s cubic-bezier(0.2, 1.2, 0.4, 1) both;
+}
+@utility stamp-in {
+  animation: stamp 0.5s cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@utility sway {
+  animation: sway 5s ease-in-out infinite;
+  transform-origin: 50% 0;
+}
+@utility ticker-run {
+  animation: ticker 32s linear infinite;
+}
+@utility draw {
+  stroke-dasharray: 260;
+  animation: draw 1s 1.9s ease-out both;
+}
+@utility pop {
+  animation: pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) backwards;
+}
+@utility write {
+  animation: write 0.9s ease-out both;
+}
+@utility highlight {
+  background-image: linear-gradient(var(--yellow), var(--yellow));
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  animation: highlight 0.7s 1.3s ease-out backwards;
+}
+@utility float {
+  animation:
+    pop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) backwards,
+    float 4s ease-in-out infinite;
+}
+@utility grow {
+  transform-origin: 50% 0;
+  animation: grow 1.2s 0.3s ease-out both;
+}
+@utility bob {
+  animation: bob 1.2s ease-in-out infinite;
+}
+@utility nudge {
+  display: inline-block;
+  animation: nudge 1.2s ease-in-out infinite;
+}
+
+/* Hover lift for every pasted-on piece. `--lift` sets how far it grows. */
+@utility scrap {
+  transition:
+    scale 0.18s ease,
+    translate 0.18s ease;
+  &:hover {
+    scale: var(--lift, 1.05);
+    translate: 0 -4px;
+  }
+}
+
+/* Cards wiggle their label tab on hover. */
+@utility wiggle-tab {
+  article:hover > & {
+    animation: wiggle 0.45s ease-in-out;
+  }
+}
+
+/* Rotate by an arbitrary angle: `tilt-[-3deg]` (uses transform so it composes with animations). */
+@utility tilt-* {
+  transform: rotate(--value([angle]));
+}
+
+@utility shade {
+  box-shadow: 3px 4px 0 var(--shade);
+}
+@utility shade-sm {
+  box-shadow: 2px 3px 0 var(--shade);
+}
+@utility shade-md {
+  box-shadow: 3px 5px 0 var(--shade);
+}
+@utility shade-lg {
+  box-shadow: 4px 6px 0 var(--shade);
+}
+
+/* Tags pop in one after another. `--tag-delay` is the start time of the group. */
+.tags > * {
+  animation: pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) backwards;
+  animation-delay: calc(var(--tag-delay, 1s) + var(--i, 0) * 70ms);
+}
+.tags > :nth-child(1) {
+  --i: 1;
+}
+.tags > :nth-child(2) {
+  --i: 2;
+}
+.tags > :nth-child(3) {
+  --i: 3;
+}
+.tags > :nth-child(4) {
+  --i: 4;
+}
+.tags > :nth-child(5) {
+  --i: 5;
+}
+.tags > :nth-child(6) {
+  --i: 6;
+}
+.tags > :nth-child(7) {
+  --i: 7;
+}
+.tags > :nth-child(8) {
+  --i: 8;
+}
+.tags > :nth-child(9) {
+  --i: 9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

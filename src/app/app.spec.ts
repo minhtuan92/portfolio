@@ -1,20 +1,26 @@
 import { TestBed } from '@angular/core/testing';
-
-import { MessageService } from 'primeng/api';
+import { provideRouter } from '@angular/router';
 
 import { App } from './app';
 
+function stubMatchMedia(): void {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: (): Partial<MediaQueryList> => ({ matches: false, addEventListener: (): void => {} })
+  });
+}
+
 describe('App', () => {
-  beforeEach(() =>
+  beforeEach(() => {
+    stubMatchMedia();
     TestBed.configureTestingModule({
       imports: [App],
-      providers: [MessageService]
-    })
-  );
+      providers: [provideRouter([])]
+    });
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(App);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
   });
 });

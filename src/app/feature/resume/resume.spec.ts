@@ -1,29 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-
-import { SVG_ICON_REGISTRY_PROVIDER, SvgHttpLoader, SvgLoader } from 'angular-svg-icon';
+import { provideRouter } from '@angular/router';
 
 import { Resume } from './resume';
 
-describe('ResumeComponent', () => {
-  let component: Resume;
+describe('Resume', () => {
   let fixture: ComponentFixture<Resume>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [Resume],
-      providers: [
-        SVG_ICON_REGISTRY_PROVIDER,
-        { provide: SvgLoader, useClass: SvgHttpLoader },
-        provideHttpClient(withInterceptorsFromDi())
-      ]
+      providers: [provideRouter([])]
     });
     fixture = TestBed.createComponent(Resume);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('renders a page heading', () => {
+    expect(fixture.nativeElement.querySelector('h1')).toBeTruthy();
   });
 });

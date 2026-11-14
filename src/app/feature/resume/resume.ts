@@ -1,104 +1,53 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AngularSvgIconModule } from 'angular-svg-icon';
+import { Component } from '@angular/core';
 
-import { Layout } from '@core/services';
+interface Stop {
+  tag: string;
+  title: string;
+  text: string;
+  bar: string;
+  dot: string;
+  rotate: string;
+  current?: boolean;
+}
+
+const STOPS: readonly Stop[] = [
+  {
+    tag: 'NOW',
+    title: 'Full-stack developer, Angular focused',
+    text: 'Define code structure, code development, code deployment using CI/CD, technical documentation, maintenance works and training for new members. Troubleshoot and handle technical blocker issues. Use AI assistants every day for coding, code review, documentation and everyday tasks.',
+    bar: 'bg-brick text-white',
+    dot: 'bg-brick',
+    rotate: 'tilt-[-0.8deg]',
+    current: true
+  },
+  {
+    tag: '2019',
+    title: 'Backend Developer',
+    text: 'Code development, code deployment and troubleshooting technical issues. Directly involved in implementation phases.',
+    bar: 'bg-cobalt text-white',
+    dot: 'bg-cobalt',
+    rotate: 'tilt-[0.7deg]'
+  },
+  {
+    tag: '2017',
+    title: 'Automation QA',
+    text: 'Define code structure and technology stack. Develop new automation tests and maintenance works. Troubleshoot issues and training for new members.',
+    bar: 'bg-pine text-white',
+    dot: 'bg-pine',
+    rotate: 'tilt-[-0.5deg]'
+  }
+];
+
+const STAMPS = [
+  { when: 'Q4 · 2023', cls: 'tilt-[-10deg]', delay: 1.4 },
+  { when: 'Q2 · 2018', cls: 'tilt-[8deg]', delay: 1.7 }
+] as const;
 
 @Component({
   selector: 'app-resume',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, AngularSvgIconModule],
-  template: `
-    @let isMobile = layoutService.isMobile();
-    <div class="flex flex-col items-start gap-11 lg:gap-8 lg:pb-8">
-      <div class="flex flex-col gap-7">
-        <div class="inline-flex animate-[fadeinleft_0.5s_ease-in] flex-nowrap">
-          <div class="typing-header">
-            <p>{{ '{“' }}&nbsp;</p>
-            <p class="typing-header__text type-resume"></p>
-            <p>&nbsp;{{ '“}' }}</p>
-          </div>
-        </div>
-        <a
-          href="./assets/files/Tran_Minh_Tuan-CV.pdf"
-          download="Tran_Minh_Tuan-CV.pdf"
-          class="inline-flex w-fit animate-bounce items-center justify-center gap-3 rounded-lg border border-green-haze px-4.5 py-2.5 text-green-haze shadow-xs hover:bg-iron/20 dark:border-screen-glow dark:text-screen-glow dark:hover:bg-manganese-black lg:px-7 lg:py-4"
-        >
-          <svg-icon
-            [applyClass]="true"
-            viewBox="auto"
-            [src]="'assets/icons/svg/download-02.svg'"
-            class="h-6 w-6 fill-lavender-mauve stroke-green-haze stroke-2 dark:fill-pastel-placebo dark:stroke-screen-glow"
-          >
-          </svg-icon>
-          Download my CV
-        </a>
-      </div>
-      <div
-        [ngClass]="isMobile ? 'flex-col gap-6' : 'flex-row justify-between md:gap-36 lg:gap-52'"
-        class="flex w-full animate-[fadeinleft_0.5s_ease-in]"
-      >
-        <div class="flex flex-col gap-5 md:w-1/2">
-          <span class="text-lavender-mauve">// experiences</span>
-          <div class="flex flex-col gap-5">
-            <div class="flex flex-col gap-2 lg:gap-4">
-              <p class="text-green-haze dark:text-screen-glow">_Sep 2021 - Present</p>
-              <p class="font-semibold uppercase">Working as Technical Lead and Fullstack Developer</p>
-              <p>
-                Perform development activities: define code structure, code development, code deployment using CI/CD,
-                technical documentation, maintenance works and training for new members. Troubleshoot and handle
-                technical blocker issues.
-              </p>
-            </div>
-            <div class="flex flex-col gap-2 lg:gap-4">
-              <p class="text-green-haze dark:text-screen-glow">_Oct 2019 - Sep 2023</p>
-              <p class="font-semibold uppercase">Working as Fullstack Developer</p>
-              <p>
-                Perform development activities: code development, code deployment and troubleshoot technical issues.
-                Directly involved in implementation phases.
-              </p>
-            </div>
-            <div class="flex flex-col gap-2 lg:gap-4">
-              <p class="text-green-haze dark:text-screen-glow">_Dec 2017 - Oct 2019</p>
-              <p class="font-semibold uppercase">Working as Automation QA</p>
-              <p>
-                Define code structure, technology stack. Develop new automation tests and maintenance works.
-                Troubleshoot issues and training for new members.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-6 lg:gap-12">
-          <div class="flex flex-col gap-5">
-            <span class="text-lavender-mauve">// achievements</span>
-            <div class="flex flex-col gap-5">
-              <div class="flex flex-col gap-2 lg:gap-4">
-                <p class="text-green-haze dark:text-screen-glow">_2023</p>
-                <p class="font-semibold uppercase">Team Star Performer Q4/2023</p>
-              </div>
-              <div class="flex flex-col gap-2 lg:gap-4">
-                <p class="text-green-haze dark:text-screen-glow">_2018</p>
-                <p class="font-semibold uppercase">Team Star Performer Q2/2018</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-5">
-            <span class="text-lavender-mauve">// education</span>
-            <div class="flex flex-col gap-5">
-              <div class="flex flex-col gap-2 lg:gap-4">
-                <p class="text-green-haze dark:text-screen-glow">_2010 - 2015</p>
-                <p class="font-semibold uppercase">Bachelor of Electrical & Electronics Engineering</p>
-                <p>Ho Chi Minh City University of Technology</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './resume.html'
 })
 export class Resume {
-  protected readonly layoutService = inject(Layout);
+  protected readonly stops = STOPS;
+  protected readonly stamps = STAMPS;
 }

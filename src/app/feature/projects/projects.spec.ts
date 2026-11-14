@@ -1,21 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { Projects } from './projects';
 
 describe('Projects', () => {
-  let component: Projects;
   let fixture: ComponentFixture<Projects>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [Projects]
+      imports: [Projects],
+      providers: [provideRouter([])]
     });
     fixture = TestBed.createComponent(Projects);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('renders a page heading', () => {
+    expect(fixture.nativeElement.querySelector('h1')).toBeTruthy();
   });
 });

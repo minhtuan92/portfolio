@@ -1,0 +1,110 @@
+<div class="mx-auto flex w-full max-w-[1320px] flex-col gap-10 px-[clamp(20px,5vw,64px)] pb-11 pt-7">
+  <div class="flex flex-wrap items-center justify-between gap-x-7 gap-y-5">
+    <h1 aria-label="My resume" class="flex flex-wrap items-center gap-3 leading-none">
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-sun font-type shade tilt-[-3deg] px-4 py-1.5 text-[clamp(44px,5.4vw,80px)] text-[#1b1b1b]"
+      >
+        my
+      </span>
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-pine font-display shade tilt-[2deg] px-[18px] py-1.5 text-[clamp(54px,7vw,104px)] text-white [animation-delay:.15s]"
+      >
+        RESUME
+      </span>
+    </h1>
+    <a
+      href="assets/files/Tran_Minh_Tuan-CV.pdf"
+      download="Tran_Minh_Tuan-CV.pdf"
+      class="scrap bg-tag text-tag-ink shade-lg tilt-[2deg] flex h-[60px] items-center gap-3 px-7 text-lg font-extrabold no-underline"
+    >
+      <svg
+        class="bob"
+        aria-hidden="true"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+      >
+        <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+      </svg>
+      Download my CV
+    </a>
+  </div>
+
+  <div class="flex flex-wrap items-start gap-x-14 gap-y-11">
+    <section class="min-w-0 flex-[1.6_1_520px]">
+      <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:.5s]">experiences</h2>
+      <ol class="relative m-0 flex list-none flex-col gap-[26px] p-0 pl-[34px]">
+        <span
+          aria-hidden="true"
+          class="border-ink absolute bottom-1.5 left-[9px] top-1.5 grow border-l-[3px] border-dashed"
+        ></span>
+        @for (stop of stops; track stop.tag; let i = $index) {
+          <li
+            class="drop scrap bg-paper text-paper-ink shade-md relative"
+            [class]="stop.rotate"
+            [style.animation-delay.s]="0.3 + i * 0.15"
+          >
+            <span
+              aria-hidden="true"
+              class="pop border-page absolute left-[-34px] top-[9px] size-3.5 rounded-full border-[3px]"
+              [class]="stop.dot"
+              [style.animation-delay.s]="0.5 + i * 0.4"
+            ></span>
+            <div
+              class="font-type flex flex-wrap justify-between gap-x-4 gap-y-1 px-[18px] py-2 text-sm tracking-[0.08em]"
+              [class]="stop.bar"
+            >
+              <span>{{ stop.tag }}</span>
+              @if (stop.current) {
+                <span>CURRENT STOP</span>
+              }
+            </div>
+            <div class="px-5 pb-5 pt-4">
+              <h3 class="font-display mb-2 text-[28px] font-normal leading-[1.15]">{{ stop.title }}</h3>
+              <p class="font-type text-base leading-[1.65]">{{ stop.text }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+
+    <div class="flex min-w-0 flex-[1_1_320px] flex-col gap-10">
+      <section>
+        <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:.75s]">achievements</h2>
+        <div class="flex flex-wrap gap-x-7 gap-y-5">
+          @for (stamp of stamps; track stamp.when) {
+            <div
+              class="stamp-in border-stamp font-type text-stamp box-border flex size-[172px] flex-col items-center justify-center rounded-full border-[5px] border-double text-center text-sm leading-[1.3]"
+              [class]="stamp.cls"
+              [style.animation-delay.s]="stamp.delay"
+            >
+              TEAM STAR<strong class="text-xl">PERFORMER</strong>{{ stamp.when }}
+            </div>
+          }
+        </div>
+      </section>
+
+      <section>
+        <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:1s]">education</h2>
+        <article
+          class="drop scrap bg-note text-note-ink shade-md tilt-[1.5deg] relative bg-[linear-gradient(rgb(47_111_214_/_0.25)_1px,transparent_1px)] bg-[length:100%_32px] bg-[position:0_62px] px-[22px] pb-[22px] pt-[30px] [animation-delay:.75s]"
+        >
+          <span
+            aria-hidden="true"
+            class="sway absolute left-[36%] top-[-14px] h-7 w-[28%] bg-[rgb(255_225_77_/_0.9)]"
+          ></span>
+          <div class="font-type text-[15px] tracking-[0.06em]">2010 – 2015</div>
+          <h3 class="font-display my-2 text-[26px] font-normal leading-[1.2]">
+            Bachelor of Electrical &amp; Electronics Engineering
+          </h3>
+          <div class="font-type text-base leading-normal">Ho Chi Minh City University of Technology</div>
+        </article>
+      </section>
+    </div>
+  </div>
+</div>

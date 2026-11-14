@@ -1,0 +1,36 @@
+<div class="mx-auto flex w-full max-w-[1320px] flex-col gap-11 px-[clamp(20px,5vw,64px)] pb-11 pt-7">
+  <div class="flex flex-wrap items-center gap-x-7 gap-y-4">
+    <h1 aria-label="My projects" class="flex flex-wrap items-center gap-3 leading-none">
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-tag font-display text-tag-ink shade tilt-[-3deg] px-4 py-1.5 text-[clamp(46px,5.8vw,86px)]"
+      >
+        my
+      </span>
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-sun shade tilt-[2deg] px-[18px] py-1.5 text-[clamp(54px,7vw,104px)] font-extrabold text-[#1b1b1b] [animation-delay:.15s]"
+      >
+        PROJECTS
+      </span>
+    </h1>
+    <div class="write font-hand tilt-[-3deg] w-fit text-[30px] font-bold [animation-delay:.5s]">
+      here are some of my selected projects so far
+    </div>
+  </div>
+
+  <section class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,480px),1fr))] gap-x-10 gap-y-11">
+    @for (project of featured; track project.no) {
+      <app-project [item]="project" />
+    }
+  </section>
+
+  <section>
+    <h2 class="write font-hand mb-4 w-fit text-[34px] font-bold [animation-delay:.75s]">earlier: automation testing</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-7">
+      @for (project of earlier; track project.no) {
+        <app-project [item]="project" [compact]="true" />
+      }
+    </div>
+  </section>
+</div>

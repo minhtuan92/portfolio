@@ -1,102 +1,111 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { ProjectItem } from '@core/models';
+import { Project, ProjectItem, ProjectTag } from '@ui/components';
 
-import { Project } from '@ui/components';
+/** `*name` marks a main technology. */
+function tags(...names: string[]): ProjectTag[] {
+  return names.map((name) => (name.startsWith('*') ? { label: name.slice(1), main: true } : { label: name }));
+}
+
+const FEATURED: readonly ProjectItem[] = [
+  {
+    no: '01',
+    title: 'Enterprise Device Management',
+    summary:
+      'A cloud platform that lets IT teams enrol, secure and manage every company device, from phones and tablets to laptops, in a single console.',
+    role: 'Back-end development on an event-driven platform: Spring Boot services on AWS that talk through SQS and Kafka, with OpenSearch keeping large device fleets searchable.',
+    tags: tags('*spring boot', '*java', 'aws', 'SQS', 'kafka', 'openSearch'),
+    tape: 'bg-[rgb(179_38_30_/_0.75)] tilt-[2deg]',
+    tilt: 'tilt-[0.9deg]',
+    delay: 0.2
+  },
+  {
+    no: '02',
+    title: 'Communication Module',
+    summary:
+      'The communication hub of a finance management system: processes, tasks, contacts, documents, letters and real-time chat in one place.',
+    role: 'Full-stack development: Angular and TailwindCSS on the front end, Spring Boot behind it, Keycloak for sign-in, Matrix (Synapse) for chat and Kafka for queueing.',
+    tags: tags('*angular', '*spring boot', 'tailwindCSS', 'keycloak', 'synapse (matrix)', 'kafka'),
+    tape: 'bg-[rgb(31_122_92_/_0.75)] tilt-[-3deg]',
+    tilt: 'tilt-[-0.8deg]',
+    delay: 0.25
+  },
+  {
+    no: '03',
+    title: 'Formbuilder',
+    summary: 'An application to build forms from a JSON schema.',
+    role: 'Discussed with clients to clarify their high-level design, performed front-end development, troubleshot and handled technical blocker issues.',
+    tags: tags('*angular', 'typescript', 'tailwindCSS', 'bootstrap', 'SCSS', 'sonarqube'),
+    tape: 'bg-[rgb(255_225_77_/_0.9)] tilt-[-3deg]',
+    tilt: 'tilt-[-1deg]',
+    delay: 0.3
+  },
+  {
+    no: '04',
+    title: 'Travel Assistant',
+    summary: 'An application to manage travel tours, with a social network and e-commerce.',
+    role: 'Performed front-end development, troubleshot and handled technical blocker issues.',
+    tags: tags('*angular', '*spring boot', '*java', 'tailwindCSS', 'postgreSQL', 'kafka', 'redis'),
+    tape: 'bg-[rgb(47_111_214_/_0.75)] tilt-[2deg]',
+    tilt: 'tilt-[0.8deg]',
+    delay: 0.4
+  },
+  {
+    no: '05',
+    title: 'Dynamic Workflow',
+    summary:
+      'A system to manage company business activities: dynamic workflow using BPMN, form management, task management.',
+    role: 'Defined the technical stack, optimised development processes, proposed design patterns and implementation guidelines for the team.',
+    tags: tags('*angular', '.net core 6', 'c#', 'postgreSQL', 'mongoDB', 'kafka', 'keycloak'),
+    tape: 'bg-[rgb(31_122_92_/_0.75)] tilt-[-2deg]',
+    tilt: 'tilt-[-0.6deg]',
+    delay: 0.5
+  },
+  {
+    no: '06',
+    title: 'Building Access',
+    summary: 'A building access control system that ensures only authorized people can enter.',
+    role: 'Developed both back end (Node.js) and front end (Angular), troubleshot and handled technical blocker issues.',
+    tags: tags('*angular', 'nodejs', 'expressjs', 'aws lambda', 'dynamoDB', 'mqtt'),
+    tape: 'bg-[rgb(179_38_30_/_0.75)] tilt-[3deg]',
+    tilt: 'tilt-[1.2deg]',
+    delay: 0.6
+  }
+];
+
+const EARLIER: readonly ProjectItem[] = [
+  {
+    no: '07',
+    title: 'Web Automation',
+    summary: 'Automation testing for a video conferencing and communication platform.',
+    tags: tags('cypress', 'nodejs', 'typescript', 'selenium'),
+    tilt: 'tilt-[-1.2deg]',
+    delay: 0.7
+  },
+  {
+    no: '08',
+    title: 'Telecom Automation 2',
+    summary: 'Automation tests for a telecom project.',
+    tags: tags('python', 'robot framework', 'selenium', 'appium'),
+    tilt: 'tilt-[0.9deg]',
+    delay: 0.8
+  },
+  {
+    no: '09',
+    title: 'Telecom Automation 1',
+    summary: 'Automation tests for a telecom project.',
+    tags: tags('junit', 'java', 'selenium'),
+    tilt: 'tilt-[-0.7deg]',
+    delay: 0.9
+  }
+];
 
 @Component({
   selector: 'app-projects',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Project],
-  template: `
-    <div class="flex flex-col items-start gap-6 lg:gap-8 lg:pb-8">
-      <div class="flex animate-[fadeinleft_0.5s_ease-in] flex-col items-start gap-7">
-        <span>// Here are some of my selective projects so far</span>
-        <div class="typing-header">
-          <p>{{ '{“' }}&nbsp;</p>
-          <p class="typing-header__text type-projects"></p>
-          <p>&nbsp;{{ '“}' }}</p>
-        </div>
-      </div>
-      <div class="flex w-full flex-col gap-8 lg:gap-12">
-        @for (project of projects; track project.id) {
-          <app-project [project]="project"></app-project>
-        }
-      </div>
-    </div>
-  `
+  templateUrl: './projects.html'
 })
 export class Projects {
-  protected readonly projects: ProjectItem[] = [
-    {
-      id: 1,
-      name: 'Formbuilder Application - Technical Lead',
-      shortName: 'Formbuilder',
-      desc: `Description: This is an application to build form from JSON scheme.
-
-              Responsibilities: discuss with clients to clarify their high-level design, perform front development activities, troubleshoot and handle technical blocker issues.
-              
-              Technologies: angular, bootstrap, tailwindCSS, typescript, SCSS, sonarqube, trivy, bearer`
-    },
-    {
-      id: 2,
-      name: 'Travel Management System - Frontend Developer',
-      shortName: 'Travel Assistant',
-      desc: `Description: An application to manage travel tour, social network, e-commercial.
-              
-              Responsibilities: perform front development activities, troubleshoot and handle technical blocker issues.
-              
-              Technologies: angular, tailwindCSS, springboot, typescript, java, cassandra, postgreSQL, mongoDB, kafka, redis...`
-    },
-    {
-      id: 3,
-      name: 'Bussiness Workflow Management System - Technical Lead',
-      shortName: 'Dynamic Workflow',
-      desc: `Description: A system to manage company business activities include modules: Dynamic Workflow using BPMN, Form Management, Task Management, ...
-              
-              Responsibilities: define technology, technical stack and optimize development processes for this project. Work closely with PO and technical architect on feature design, requirement clarifications, and architecture clarification. Propose good design patterns and implementation guidelines for team. Perform general development activities: code development, unit test, code deployment, technical documentation, and maintenance works (fix bug or customer issues, support customer requests/questions directly). Perform code review, technical support for team members. Troubleshoot and handle technical blocker issues. Review performance and security for this project. Training new members.
-              
-              Technologies: c#, netcore 6.0, entity framework, Angular, tailwindCSS, typescript, SCSS, postgreSQL, mongoDB, keycloak, hangfire, kafka, sonarqube, firebase`
-    },
-    {
-      id: 4,
-      name: 'Building Access Management System - Full Stack Developer',
-      shortName: 'Building Access',
-      desc: `Description: A building access control system, at its most basic form, is a way to ensure only authorized people are able to enter your building. This adds an additional layer of security and protection for your residents, employees, information, and assets.
-              
-              Responsibilities: perform front development activities on both BE (Nodejs) and FE(Angular), troubleshoot and handle technical blocker issues.
-              
-              Technologies: angular, tailwindCSS, nodejs, expressjs, material ui, aws lamda, aws s3, aws cloudFront, mongoDB, dynamoDB, firebase, sendgrid, twilio, mosquitto (mqtt), sonarqube...`
-    },
-    {
-      id: 5,
-      name: 'Web Automation Test - Automation QA',
-      shortName: 'Web Automation',
-      desc: `Description: Automation Testing for video conferencing and communication platform.
-              
-              Responsibilities: define code structure, technology stack. Develop new automation test and maintenance works. Troubleshoot issues and training for new member.
-              
-              Technologies: cypress, nodejs, typescript, selenium.`
-    },
-    {
-      id: 6,
-      name: 'Telecom Automation Test 2 - Automation QA',
-      shortName: 'Telecom Automation 2',
-      desc: `Description: Automation test for telecom project.
-              
-              Responsibilities: define code structure, technology stack. Develop new automation test and maintenance works. Troubleshoot issues and training for new member.
-              
-              Technologies: python, robotframework, selenium, appium.`
-    },
-    {
-      id: 7,
-      name: 'Telecom Automation Test 1 - Automation QA',
-      shortName: 'Telecom Automation 1',
-      desc: `Description: Automation test for telecom project.
-              
-              Responsibilities: develop new automation test and maintenance works. Troubleshoot issues.
-              
-              Technologies: junit, java, selenium.`
-    }
-  ] as const;
+  protected readonly featured = FEATURED;
+  protected readonly earlier = EARLIER;
 }

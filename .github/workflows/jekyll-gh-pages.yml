@@ -1,5 +1,6 @@
-# Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll with GitHub Pages dependencies preinstalled
+# Builds the Angular app and deploys it to GitHub Pages.
+# (The file name is a leftover from the Jekyll starter workflow; the pipeline is Angular + pnpm.)
+name: Deploy portfolio to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -28,20 +29,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # The pnpm version comes from "packageManager" in package.json.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      # Angular 22 needs Node ^22.22.3 or ^24.15.0.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '24'
+          cache: pnpm
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Install dependencies
-        run: npm install -g pnpm && pnpm install --force
+        run: pnpm install --frozen-lockfile
+      # The application builder writes the site to dist/<project>/browser.
+      # 404.html is a copy of index.html so deep links (e.g. /portfolio/projects) load the SPA.
       - name: Build
-        run: pnpm run build:gh-page && cp ./dist/my-portfolio/index.html ./dist/my-portfolio/404.html
+        run: pnpm run build:gh-page && cp ./dist/myPortfolio/browser/index.html ./dist/myPortfolio/browser/404.html
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/my-portfolio
+          path: ./dist/myPortfolio/browser
 
   # Deployment job
   deploy:
@@ -53,4 +61,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

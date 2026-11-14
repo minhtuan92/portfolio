@@ -1,110 +1,103 @@
-<div class="flex flex-col items-start gap-8 overflow-y-auto overflow-x-hidden lg:pb-8">
-  <div class="flex animate-[fadeinleft_0.5s_ease-in] flex-nowrap">
-    <div class="typing-header">
-      <p>{{ '{“' }}&nbsp;</p>
-      <p class="typing-header__text type-about"></p>
-      <p>&nbsp;{{ '“}' }}</p>
+<div class="mx-auto flex w-full max-w-[1320px] flex-col gap-11 px-[clamp(20px,5vw,64px)] pb-11 pt-7">
+  <div class="flex flex-wrap items-center gap-x-14 gap-y-10">
+    <div class="min-w-0 flex-[1.5_1_480px]">
+      <h1 aria-label="About me" class="mb-6 flex flex-wrap items-center gap-3 leading-none">
+        <span
+          aria-hidden="true"
+          class="drop scrap bg-brick shade tilt-[-2deg] px-[18px] py-1.5 text-[clamp(54px,7vw,104px)] font-extrabold text-white"
+        >
+          ABOUT
+        </span>
+        <span
+          aria-hidden="true"
+          class="drop scrap bg-sun font-type shade tilt-[3deg] px-4 py-1.5 text-[clamp(46px,5.8vw,86px)] text-[#1b1b1b] [animation-delay:.15s]"
+        >
+          me
+        </span>
+      </h1>
+
+      <div class="write font-hand mb-2 w-fit text-[30px] font-bold [animation-delay:.5s]">who I am</div>
+      <p
+        class="drop bg-paper font-display text-paper-ink shade tilt-[-0.8deg] mb-6 max-w-[52ch] px-[18px] py-3.5 text-[clamp(24px,2.4vw,32px)] leading-tight [animation-delay:.3s]"
+      >
+        I'm Tuan Tran, a full-stack developer based in Ho Chi Minh City, Viet Nam.
+      </p>
+
+      <div class="write font-hand mb-2 w-fit text-[30px] font-bold [animation-delay:.75s]">what I do</div>
+      <p
+        class="drop bg-note font-type text-note-ink shade tilt-[0.6deg] max-w-[58ch] px-5 py-4 text-lg leading-[1.65] [animation-delay:.45s]"
+      >
+        I have 6+ years of experience in web development, with a strong background in both front-end and back-end
+        technologies. I am passionate about web development using
+        <span class="highlight px-1 text-[#1b1b1b]">Angular</span>, and back-end development using
+        <span class="highlight px-1 text-[#1b1b1b]">Java and Spring Boot</span>. Learning new things always excites me,
+        and I am constantly seeking new challenges to expand my knowledge and skills.
+      </p>
     </div>
-  </div>
-  <div class="flex flex-1 flex-col gap-6 lg:gap-12">
-    <div class="flex animate-[fadeinleft_0.5s_ease-in] flex-col gap-6 lg:gap-12">
-      <div class="flex flex-col gap-2 lg:gap-5">
-        <span class="text-lavender-mauve">// who I am</span>
-        <p>
-          I'm Tuan Tran a front-end developer based in Ho Chi Minh, Viet Nam,
-          <img src="assets/images/png/vietnam.png" alt="flag" class="inline-block h-8 w-8" /> .
-        </p>
-      </div>
-      <div class="flex flex-col gap-2 lg:gap-5">
-        <span class="text-lavender-mauve">// what I do</span>
-        <div class="flex flex-col gap-2 lg:gap-3">
-          <p>
-            I have 6+ years of experience in web development, with a strong background in both front-end and back-end
-            technologies.
-          </p>
-          <p>I am passionate about Web development using Angular and Back-end development using .Net, Springboot.</p>
-          <p>
-            Learning new things always excites me and I am constantly seeking new challenges to expand my knowledge and
-            skills technologies.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="flex animate-[fadeinright_0.5s_ease-in] flex-col gap-5">
-      <div class="flex flex-col text-lavender-mauve">//what drives my work</div>
-      <div class="flex flex-col gap-6">
-        <div class="flex flex-col gap-2 lg:gap-5">
-          <p class="text-green-haze dark:text-screen-glow">_able</p>
-          <div class="flex flex-col gap-2 lg:gap-3">
-            <p>
-              My strength lies in effectively managing multiple tasks and thriving under pressure. I excel at
-              prioritizing responsibilities, ensuring timely completion without compromising quality. In high-pressure
-              situations, I harness adrenaline to boost productivity and problem-solving.
-            </p>
-            <p>
-              Additionally, my passion for self-learning drives me to continuously explore system architecture, where I
-              am fascinated by the intricacies of technology and strive to stay abreast of advancements.
-            </p>
-            <p>
-              Overall, my ability to manage tasks, thrive under pressure, and my passion for self-improvement and system
-              architecture position me as a valuable asset in any professional environment.
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-2 lg:gap-5">
-          <p class="text-green-haze dark:text-screen-glow">_innovative</p>
-          <div class="flex flex-col gap-2 lg:gap-3">
-            <p>
-              I am consistently innovative in my approach to work, always seeking out new ideas and exploring different
-              avenues to enhance productivity. My relentless pursuit of excellence drives me to continuously seek the
-              best methods for handling tasks effectively.
-            </p>
-            <p>
-              I am proactive in researching and implementing new strategies, constantly striving to optimize processes
-              and achieve optimal results.
-            </p>
-            <p>
-              This commitment to innovation and continuous improvement ensures that I remain adaptable and capable of
-              meeting the evolving demands of any project or task.
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-2 lg:gap-5">
-          <p class="text-green-haze dark:text-screen-glow">_team work</p>
-          <div class="flex flex-col gap-2 lg:gap-3">
-            <p>
-              Teamwork is fundamental to my professional approach. I prioritize open communication, valuing diverse
-              perspectives and fostering an environment where every team member feels empowered to contribute.
-            </p>
-            <p>
-              I build strong relationships based on trust and reliability, ensuring accountability and promoting a
-              positive team dynamic.
-            </p>
-            <p>
-              By collaborating effectively, I believe teams can achieve greater success and overcome challenges with
-              unity and mutual support.
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-col gap-2 lg:gap-5">
-          <p class="text-green-haze dark:text-screen-glow">_flexible</p>
-          <div class="flex flex-col gap-2 lg:gap-3">
-            <p>
-              I approach each task or project with an open mind, ready to pivot strategies or adjust priorities as
-              needed. This adaptability allows me to navigate unexpected obstacles with ease and find creative solutions
-              to complex problems.
-            </p>
-            <p>
-              Moreover, I am receptive to feedback and willing to incorporate new ideas or perspectives into my
-              approach.
-            </p>
-            <p>
-              By remaining flexible in my thinking and actions, I am better equipped to thrive in dynamic environments
-              and contribute effectively to the success of any endeavor.
-            </p>
-          </div>
-        </div>
+
+    <div class="relative min-w-0 max-w-[400px] flex-[1_1_300px] px-[6%] pt-3.5">
+      <div
+        aria-hidden="true"
+        class="slidein bg-pine tilt-[4deg] absolute left-0 top-[6%] h-[88%] w-[96%] [animation-delay:.3s]"
+      ></div>
+      <img
+        class="slidein tilt-[-2deg] relative block aspect-[4/5] w-full object-cover object-top [animation-delay:.5s] [clip-path:polygon(2%_1%,98%_0,100%_97%,40%_100%,0_96%)]"
+        src="assets/images/my-image.jpg"
+        alt="Portrait of Tuan Tran"
+      />
+      <span
+        aria-hidden="true"
+        class="sway absolute left-[36%] top-0 z-[2] h-[30px] w-[28%] bg-[rgb(255_225_77_/_0.85)]"
+      ></span>
+      <div
+        class="drop bg-paper font-hand text-paper-ink shade-sm tilt-[-5deg] absolute bottom-[6%] right-[-4%] z-[3] px-3.5 py-0.5 text-[26px] font-bold [animation-delay:.9s]"
+      >
+        Ho Chi Minh City, Viet Nam
       </div>
     </div>
   </div>
+
+  <section>
+    <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:1s]">what drives my work</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[26px]">
+      @for (trait of traits; track trait.label; let i = $index) {
+        <article
+          class="pop scrap bg-paper text-paper-ink shade-md relative px-5 pb-5 pt-[26px]"
+          [class]="trait.rotate"
+          [style.animation-delay.s]="0.6 + i * 0.1"
+        >
+          <h3
+            class="wiggle-tab font-type shade-sm absolute left-3.5 top-[-16px] px-3 py-1 text-xl font-normal"
+            [class]="trait.tab"
+          >
+            {{ trait.label }}
+          </h3>
+          <p class="font-type text-base leading-[1.6]">{{ trait.text }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:1.3s]">
+      and AI is part of how I work
+    </h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[26px]">
+      @for (use of aiUses; track use.label; let i = $index) {
+        <article
+          class="pop scrap bg-note text-note-ink shade-md relative px-5 pb-5 pt-[26px]"
+          [class]="use.rotate"
+          [style.animation-delay.s]="1.5 + i * 0.1"
+        >
+          <h3
+            class="wiggle-tab font-type shade-sm absolute left-3.5 top-[-16px] px-3 py-1 text-xl font-normal"
+            [class]="use.tab"
+          >
+            {{ use.label }}
+          </h3>
+          <p class="font-type text-base leading-[1.6]">{{ use.text }}</p>
+        </article>
+      }
+    </div>
+  </section>
 </div>
