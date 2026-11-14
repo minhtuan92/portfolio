@@ -3,3 +3,8 @@ allowBuilds:
   esbuild: true
   lmdb: true
   msgpackr-extract: true
+
+# pnpm 11 rejects lockfile entries published within the last day (minimumReleaseAge).
+# vite pins postcss exactly and that release was only hours old when CI first ran.
+minimumReleaseAgeExclude:
+  - postcss
