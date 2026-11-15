@@ -1,0 +1,54 @@
+<div class="mx-auto flex w-full max-w-[1320px] flex-col gap-10 px-[clamp(20px,5vw,64px)] pb-11 pt-7">
+  <div class="flex flex-wrap items-center gap-x-7 gap-y-4">
+    <h1 aria-label="My skills" class="flex flex-wrap items-center gap-3 leading-none">
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-paper font-display text-paper-ink shade tilt-[-3deg] px-4 py-1.5 text-[clamp(46px,5.8vw,86px)]"
+      >
+        my
+      </span>
+      <span
+        aria-hidden="true"
+        class="drop scrap bg-cobalt shade tilt-[2deg] px-[18px] py-1.5 text-[clamp(54px,7vw,104px)] font-extrabold text-white [animation-delay:.15s]"
+      >
+        SKILLS
+      </span>
+    </h1>
+    <div class="write font-hand tilt-[-3deg] w-fit text-[30px] font-bold [animation-delay:.5s]">
+      programming languages &amp; tools I have learned
+    </div>
+  </div>
+
+  <section>
+    <h2 class="write font-hand mb-3 w-fit text-[32px] font-bold [animation-delay:.75s]">main stack, every day</h2>
+    <ul class="flex list-none flex-wrap items-center gap-x-4 gap-y-[18px] p-0">
+      @for (skill of mainStack; track skill.label; let i = $index) {
+        <li class="float scrap shade py-2.5 leading-none" [class]="skill.cls" [style.animation-delay.s]="0.3 + i * 0.1">
+          {{ skill.label }}
+        </li>
+      }
+    </ul>
+  </section>
+
+  <section class="grid grid-cols-[repeat(auto-fit,minmax(270px,1fr))] gap-x-7 gap-y-8">
+    @for (group of groups; track group.title; let i = $index) {
+      <article
+        class="drop bg-note text-note-ink shade-md relative px-[22px] pb-6 pt-[30px]"
+        [class]="group.rotate"
+        [class.col-span-full]="group.wide"
+        [style.animation-delay.s]="0.5 + i * 0.15"
+      >
+        <span aria-hidden="true" class="sway absolute left-[34%] top-[-14px] h-7 w-[32%]" [class]="group.tape"></span>
+        <h2 class="font-display mb-3.5 text-3xl font-normal">{{ group.title }}</h2>
+        <ul
+          class="tags font-type m-0 flex list-none flex-wrap gap-x-2 gap-y-2.5 p-0 text-base"
+          [style.--tag-delay]="0.9 + i * 0.15 + 's'"
+        >
+          @for (item of group.items; track item.label) {
+            <li class="px-2.5 py-1" [class]="item.cls">{{ item.label }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </section>
+</div>

@@ -1,0 +1,103 @@
+<div class="mx-auto flex w-full max-w-[1320px] flex-col gap-11 px-[clamp(20px,5vw,64px)] pb-11 pt-7">
+  <div class="flex flex-wrap items-center gap-x-14 gap-y-10">
+    <div class="min-w-0 flex-[1.5_1_480px]">
+      <h1 aria-label="About me" class="mb-6 flex flex-wrap items-center gap-3 leading-none">
+        <span
+          aria-hidden="true"
+          class="drop scrap bg-brick shade tilt-[-2deg] px-[18px] py-1.5 text-[clamp(54px,7vw,104px)] font-extrabold text-white"
+        >
+          ABOUT
+        </span>
+        <span
+          aria-hidden="true"
+          class="drop scrap bg-sun font-type shade tilt-[3deg] px-4 py-1.5 text-[clamp(46px,5.8vw,86px)] text-[#1b1b1b] [animation-delay:.15s]"
+        >
+          me
+        </span>
+      </h1>
+
+      <div class="write font-hand mb-2 w-fit text-[30px] font-bold [animation-delay:.5s]">who I am</div>
+      <p
+        class="drop bg-paper font-display text-paper-ink shade tilt-[-0.8deg] mb-6 max-w-[52ch] px-[18px] py-3.5 text-[clamp(24px,2.4vw,32px)] leading-tight [animation-delay:.3s]"
+      >
+        I'm Tuan Tran, a full-stack developer based in Ho Chi Minh City, Viet Nam.
+      </p>
+
+      <div class="write font-hand mb-2 w-fit text-[30px] font-bold [animation-delay:.75s]">what I do</div>
+      <p
+        class="drop bg-note font-type text-note-ink shade tilt-[0.6deg] max-w-[58ch] px-5 py-4 text-lg leading-[1.65] [animation-delay:.45s]"
+      >
+        I have 6+ years of experience in web development, with a strong background in both front-end and back-end
+        technologies. I am passionate about web development using
+        <span class="highlight px-1 text-[#1b1b1b]">Angular</span>, and back-end development using
+        <span class="highlight px-1 text-[#1b1b1b]">Java and Spring Boot</span>. Learning new things always excites me,
+        and I am constantly seeking new challenges to expand my knowledge and skills.
+      </p>
+    </div>
+
+    <div class="relative min-w-0 max-w-[400px] flex-[1_1_300px] px-[6%] pt-3.5">
+      <div
+        aria-hidden="true"
+        class="slidein bg-pine tilt-[4deg] absolute left-0 top-[6%] h-[88%] w-[96%] [animation-delay:.3s]"
+      ></div>
+      <img
+        class="slidein tilt-[-2deg] relative block aspect-[4/5] w-full object-cover object-top [animation-delay:.5s] [clip-path:polygon(2%_1%,98%_0,100%_97%,40%_100%,0_96%)]"
+        src="assets/images/my-image.jpg"
+        alt="Portrait of Tuan Tran"
+      />
+      <span
+        aria-hidden="true"
+        class="sway absolute left-[36%] top-0 z-[2] h-[30px] w-[28%] bg-[rgb(255_225_77_/_0.85)]"
+      ></span>
+      <div
+        class="drop bg-paper font-hand text-paper-ink shade-sm tilt-[-5deg] absolute bottom-[6%] right-[-4%] z-[3] px-3.5 py-0.5 text-[26px] font-bold [animation-delay:.9s]"
+      >
+        Ho Chi Minh City, Viet Nam
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:1s]">what drives my work</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-[26px]">
+      @for (trait of traits; track trait.label; let i = $index) {
+        <article
+          class="pop scrap bg-paper text-paper-ink shade-md relative px-5 pb-5 pt-[26px]"
+          [class]="trait.rotate"
+          [style.animation-delay.s]="0.6 + i * 0.1"
+        >
+          <h3
+            class="wiggle-tab font-type shade-sm absolute left-3.5 top-[-16px] px-3 py-1 text-xl font-normal"
+            [class]="trait.tab"
+          >
+            {{ trait.label }}
+          </h3>
+          <p class="font-type text-base leading-[1.6]">{{ trait.text }}</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2 class="write font-hand mb-3.5 w-fit text-[34px] font-bold [animation-delay:1.3s]">
+      and AI is part of how I work
+    </h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-[26px]">
+      @for (use of aiUses; track use.label; let i = $index) {
+        <article
+          class="pop scrap bg-note text-note-ink shade-md relative px-5 pb-5 pt-[26px]"
+          [class]="use.rotate"
+          [style.animation-delay.s]="1.5 + i * 0.1"
+        >
+          <h3
+            class="wiggle-tab font-type shade-sm absolute left-3.5 top-[-16px] px-3 py-1 text-xl font-normal"
+            [class]="use.tab"
+          >
+            {{ use.label }}
+          </h3>
+          <p class="font-type text-base leading-[1.6]">{{ use.text }}</p>
+        </article>
+      }
+    </div>
+  </section>
+</div>

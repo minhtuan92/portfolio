@@ -1,29 +1,26 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
+    "skipLibCheck": true,
+    "isolatedModules": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "useDefineForClassFields": false,
-    "strictPropertyInitialization": false,
-    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@core/*": ["src/app/core/*"],
-      "@env/*": ["src/environments/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@env/*": ["./src/environments/*"],
+      "@core/*": ["./src/app/core/*"],
+      "@ui/*": ["./src/app/ui/*"],
+      "@pattern/*": ["./src/app/pattern/*"],
+      "@layout/*": ["./src/app/layout/*"],
+      "@feature/*": ["./src/app/feature/*"]
     }
   },
   "angularCompilerOptions": {
@@ -31,5 +28,14 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

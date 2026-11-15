@@ -4,51 +4,57 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
+Package manager is **pnpm** (`angular.json` sets `cli.packageManager: pnpm`).
+
 ```bash
-# Development
-npm start           # Dev server at http://localhost:4200
-ng watch            # Watch mode build
+pnpm start                     # Dev server at http://localhost:4200 (development config)
+pnpm build                     # Production build (default configuration) -> dist/my-portfolio
+pnpm run build:gh-page         # Production build with --base-href /portfolio/ (GitHub Pages)
+pnpm watch                     # Dev build in watch mode
+pnpm lint                      # ng lint (ESLint over src/**/*.ts and src/**/*.html)
 
-# Build
-ng build                                                        # Standard build
-pnpm run build:gh-page  # GitHub Pages build (sets base-href /portfolio/)
-
-# Testing
-pnpm test           # Run all Vitest tests (single run)
-pnpm test:watch     # Run Vitest in watch mode
-ng test             # Run via Angular CLI (uses @angular/build:unit-test with Vitest)
-
-# Code quality
-ng lint             # ESLint
+pnpm exec ng test --watch=false                                        # All tests (Vitest via @angular/build:unit-test)
+pnpm exec ng test --watch=false --include src/app/feature/home/home.spec.ts  # Single spec
 ```
+
+Use `ng test`, not `pnpm test`: the `test` script calls `vitest` directly, but the repo has no `vitest.config`, so the Angular compiler plugin never loads and every spec fails. Vitest globals (`describe`, `it`, `vi`) come from `tsconfig.spec.json` (`types: ["vitest/globals"]`).
 
 ## Architecture
 
-Angular 18 standalone-components portfolio app. No NgModules — every component uses `standalone: true`.
+This is an Angular 22 standalone-component app with no NgModules. The root component is `App` in `src/app/app.ts`. Files use the new suffix-less naming (`home.ts`, `theme.ts`), and classes have no `Component`/`Service` suffix (`Home`, `Theme`, `MainLayout`).
 
-**Layer structure** (`src/app/`):
-- `core/` — Singleton services (ThemeService, LayoutService, ToastService), guards, interceptors, HTTP logic, and test mocks. Injected app-wide.
-- `shared/` — Reusable UI components, layout shell (header/sidebar/footer), models (`ProjectItem`, `TechCardItem`), constants, directives, pipes, and utilities. Shared services here are facades over core.
-- `features/` — Six page-level feature areas (`home`, `about`, `skills`, `resume`, `projects`, `contact`), each lazy-loaded via the router.
+**Bootstrap**: `src/main.ts` boots `App` with `appConfig` from `src/app/app-config.ts`. `appConfig` provides the global error listeners and the router (scroll restored to the top on navigation). The app is zoneless (Angular's default since v21); `zone.js` is kept only as a devDependency because `ng test` resolves it. Components rely on `OnPush` (the default since v22, so no `changeDetection` line) and state lives in signals.
 
-**Routing** ([app.routes.ts](src/app/app.routes.ts)): All feature routes use `loadComponent` / `loadChildren` for lazy loading.
+**Routing** (`src/app/app-routes.ts`): one parent route renders `MainLayout`, and each page under `feature/` is a lazy `loadComponent` child of it. Unknown paths redirect to `''`.
 
-**App bootstrap** ([app.config.ts](src/app/app.config.ts)): Providers are configured here (router, animations, PrimeNG theme, etc.) rather than in a root module.
+**Layering** (`src/app/`), with a path alias for each layer (see `tsconfig.json`):
+- `core/` (`@core/*`): app-wide singletons. These are the `Theme` service and constants, each exported through an `index.ts` barrel. Import from the barrel, e.g. `@core/services`.
+- `ui/` (`@ui/*`): presentational components (`project` card, `ticker`).
+- `pattern/` (`@pattern/*`): composed widgets such as `darkmode-button`.
+- `layout/` (`@layout/*`): `MainLayout` plus header and footer (the footer holds the ticker).
+- `feature/` (`@feature/*`): one routed page per folder (home, about, skills, resume, projects, contact).
 
-## Key Technologies
+**Global UI state**:
+- `Theme` reads the `localStorage` theme key: dark, light, or system. It toggles the `dark` class on `<html>` and exposes `currentTheme` as a signal. `App.ngOnInit` calls `updateTheme()`. If nothing is stored, it defaults to dark.
+- `Theme.toggle()` flips light/dark and stores the choice; `DarkmodeButton` (the paper chip in the header) calls it.
+- Responsive behaviour is pure CSS (Tailwind `max-[640px]:` and `max-[359px]:` variants); there is no JS breakpoint service.
 
-- **UI**: PrimeNG 17, Angular CDK, angular-svg-icon, overlayscrollbars
-- **Styling**: Tailwind CSS 4 via `@tailwindcss/postcss`; theme config in `tailwind.config.js` (loaded via `@config`); dark mode via `ThemeService`; custom VT323 monospace font in `assets/fonts/`
-- **State**: Service-based only (no Redux/NgRx). `ThemeService` and `LayoutService` handle global UI state via RxJS signals/subjects.
-- **Testing**: Vitest 3 + jsdom + `@analogjs/vite-plugin-angular`; global mocks in `src/app/core/mocks/global.mock.ts`; Angular test env bootstrapped in `src/test-setup.ts`
+## Styling
 
-## TypeScript Path Aliases
+The look is a "paper collage": scraps of paper, tape, stamps and a scrolling ticker, in a light and a dark variant.
 
-Defined in [tsconfig.json](tsconfig.json):
-- `@core/*` → `src/app/core/*`
-- `@shared/*` → `src/app/shared/*`
-- `@env/*` → `src/environments/*`
+- Tailwind CSS 4 runs via `@tailwindcss/postcss`. Design tokens live in `src/styles.css`: CSS variables on `:root` (light) and `:root.dark` (dark), mapped to utilities in `@theme` (`bg-page`, `bg-paper`, `bg-note`, `bg-tag`, `bg-brick`, `bg-sun`, `bg-cobalt`, `bg-pine`, `text-ink`, …) and fonts `font-display` (Abril Fatface), `font-type` (Special Elite), `font-hand` (Caveat), `font-sans` (Inter). The fonts load from Google Fonts in `index.html`.
+- `styles.css` also defines custom utilities: animations (`drop`, `slidein`, `stamp-in`, `sway`, `pop`, `write`, `highlight`, `float`, `grow`, …), `scrap` (hover lift), `shade`/`shade-sm`/`shade-md`/`shade-lg` (paper shadows), `tilt-[<angle>]` (rotates with `transform` so it composes with the animations), and `.tags` (children pop in one after another). All motion switches off under `prefers-reduced-motion`.
+- `tailwind.config.js` only keeps `darkMode: 'class'`, the content globs and the `sm`/`md`/`lg`/`xl` breakpoints. Do not add object-valued screens: Tailwind then drops the `min-*`/`max-*` variants the layout relies on.
+- Pages and components use Tailwind classes; class lists are kept in the order `prettier-plugin-tailwindcss` produces (`pnpm lint --fix`). Component CSS budget is 2kb warning / 4kb error (production build).
+- There is no component library: PrimeNG, `angular-svg-icon` and OverlayScrollbars were removed with the redesign. Icons are inline SVG.
+
+## Lint conventions (eslint.config.mjs)
+
+- Selectors need the `app` prefix: element selectors in kebab-case, attribute selectors in camelCase.
+- `@typescript-eslint/explicit-function-return-type` is set to **error**, so every function and method needs a return type.
+- Prettier runs as an ESLint rule (`prettier/prettier: error`). Templates also get the angular-eslint accessibility rules.
 
 ## Deployment
 
-GitHub Actions ([.github/workflows/jekyll-gh-pages.yml](.github/workflows/jekyll-gh-pages.yml)) triggers on push to `main`, runs `pnpm run build:gh-page`, and deploys to GitHub Pages. A `404.html` copy is created post-build to support SPA client-side routing.
+`.github/workflows/jekyll-gh-pages.yml` runs on every push to `main`. It runs `pnpm run build:gh-page` and copies `dist/myPortfolio/browser/index.html` to `404.html` (Node 24, pnpm from `packageManager`) so SPA deep links work. It then deploys to GitHub Pages at `https://minhtuan92.github.io/portfolio/`.
